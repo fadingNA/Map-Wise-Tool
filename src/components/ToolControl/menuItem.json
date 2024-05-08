@@ -1,0 +1,19 @@
+[
+  {
+    "id": 1,
+    "name": "Layers",
+    "icon": "/layers.svg"
+  },
+  {
+    "id": 2,
+    "name": "Maps"
+  },
+  {
+    "id": 3,
+    "name": "Upload Shapefile"
+  },
+  {
+    "id": 4,
+    "name": "Export"
+  }
+]

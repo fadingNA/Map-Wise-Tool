@@ -14,3 +14,5 @@ const MapContext = React.createContext<MapContextType | undefined>(
 );
 
 export default MapContext;
+
+// Path: geowise/src/components/Map/MapContext.tsx

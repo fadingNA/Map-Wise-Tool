@@ -1,19 +1,22 @@
 [
   {
     "id": 1,
-    "name": "Layers",
-    "icon": "/layers.svg"
+    "name": "Maps",
+    "icon": "/treasure-map.png"
   },
   {
     "id": 2,
-    "name": "Maps"
+    "name": "Layers",
+    "icon": "/layers.png"
   },
   {
     "id": 3,
-    "name": "Upload Shapefile"
+    "name": "Upload Shapefile",
+    "icon": "/upload.png"
   },
   {
     "id": 4,
-    "name": "Export"
+    "name": "Export",
+    "icon": "/download.png"
   }
 ]

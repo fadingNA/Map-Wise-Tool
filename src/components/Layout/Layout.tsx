@@ -1,7 +1,7 @@
 import React from "react";
 import { LayoutProps } from "../../../type/type";
 import Navbar from "../Navbar/Navbar";
-import Footer from "@/Footer/Footer";
+//import Footer from "@/components/Footer/Footer";
 
 function Layout({ children }: LayoutProps) {
   return (

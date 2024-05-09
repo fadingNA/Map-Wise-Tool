@@ -1,17 +1,23 @@
-import Image from "next/image";
 import { Inter } from "next/font/google";
+import { CSSTransition } from "react-transition-group";
 import ToolControl from "@/components/ToolControl/ToolControl";
 import MapController from "@/components/Map/Map";
 import { useState } from "react";
 import MapTilerLayer from "@/components/LayerModel/BaseLayer";
+import LayerSelector from "../LayerModel/LayerSelector";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [activeComponent, setActiveComponent] = useState("default");
+  const [layerStyle, setLayerStyle] = useState("streets-v2-dark");
 
   const handleMenuSelect = (menuItem: string) => {
     console.log(menuItem);
+    if (menuItem === activeComponent) {
+      setActiveComponent("default");
+      return;
+    }
     setActiveComponent(menuItem);
   };
 
@@ -22,11 +28,17 @@ export default function Home() {
     >
       <ToolControl handleMenuSelect={handleMenuSelect} />
       <div className="main-content" style={{ flex: 1 }}>
-        {activeComponent === "Maps" && (
-          <MapController>
-            <MapTilerLayer style="streets-v2-dark" zIndex={1} opacity={1} />
-          </MapController>
-        )}
+        <MapController>
+          <MapTilerLayer style={layerStyle} zIndex={1} opacity={1} />
+        </MapController>
+        <CSSTransition
+          in={activeComponent === "Layers"}
+          timeout={100}
+          classNames="slide"
+          unmountOnExit
+        >
+          <LayerSelector onSelectStyle={setLayerStyle} />
+        </CSSTransition>
       </div>
     </div>
   );

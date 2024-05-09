@@ -1,0 +1,17 @@
+[
+  {
+    "baseLayerName": [
+      {
+        "name": "Back Drop",
+        "style": "backdrop"
+      },
+      {
+        "name": "Basic",
+        "style": "basic-v2"
+      },
+      { "name": "Streets Dark", "style": "streets-v2-dark" },
+      { "name": "Streets Light", "style": "streets-v2-light" },
+      { "name": "Streets", "style": "streets-v2" }
+    ]
+  }
+]

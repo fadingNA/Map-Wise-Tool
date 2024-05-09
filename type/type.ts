@@ -1,3 +1,5 @@
+import Layer from "ol/layer/Layer";
+
 export interface LayoutProps {
   children: React.ReactNode;
 }
@@ -30,4 +32,19 @@ export interface MapTilerLayerProps {
 
 export interface ToolControlProps {
   handleMenuSelect: (menuItemName: string) => void; // Define the type for the function prop
+}
+
+export interface LayerInfo {
+  name: string;
+  style: string;
+}
+
+export interface LayerGroup {
+  baseLayerName: LayerInfo[];
+}
+
+export interface UseSelectLayerReturn {
+  selectLayer: (style: string) => void;
+  selectedLayer: string;
+  layerData: LayerGroup[];
 }

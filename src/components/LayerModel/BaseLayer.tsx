@@ -13,7 +13,7 @@ const MapTilerLayer = ({
 
   useEffect(() => {
     if (!context?.map) return; // Check if 'map' is available
-
+    console.log(style);
     const map = context.map;
     const url = `https://api.maptiler.com/maps/${style}/{z}/{x}/{y}@2x.png?key=0EwVPj0QPVB9CXJO2d0g`;
     const maptilerLayer = new OLTileLayer({
@@ -33,7 +33,7 @@ const MapTilerLayer = ({
     return () => {
       map.removeLayer(maptilerLayer);
     };
-  }, [context, style, zIndex, opacity, visible]);
+  }, [context?.map, style, zIndex, opacity, visible]);
 
   return null;
 };

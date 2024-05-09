@@ -2,7 +2,8 @@ import React, { useRef, useState, PropsWithChildren, useMemo } from "react";
 import { useMapInitialization, useMapOverlay } from "../CustomHook";
 import MapContext from "./MapContext";
 import { MapContextType } from "../../../type/type";
-//import ol from "ol";
+import ol from "ol";
+import { Attribution } from "ol/control";
 
 const MapController: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const center = useMemo<[number, number]>(() => [43.6532, -79.3832], []);
@@ -22,6 +23,8 @@ const MapController: React.FC<PropsWithChildren<{}>> = ({ children }) => {
     setCenter: setMapCenter,
     setZoom: setMapZoom,
   };
+
+  
 
   return (
     <MapContext.Provider value={contextValue}>

@@ -12,7 +12,7 @@ body {
 
 .map-wrap {
     position: relative;
-    height: calc(100vh - 50px);
+    height: calc(100vh);
     z-index: 1;
 }
 
@@ -69,4 +69,24 @@ body {
 .slide-exit-active {
     transform: translateX(-100%);
     transition: transform 100ms ease-in-out;
+}
+
+.ol-attribution {
+    bottom: 0 !important;
+    right: 0 !important;
+    left: auto !important;
+    top: auto !important;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    padding: 3px;
+    margin: 0;
+    margin-bottom: 3rem;
+    overflow: hidden;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    z-index: 1000;
 }

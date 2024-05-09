@@ -6,8 +6,6 @@ import { useState } from "react";
 import MapTilerLayer from "@/components/LayerModel/BaseLayer";
 import LayerSelector from "../LayerModel/LayerSelector";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export default function Home() {
   const [activeComponent, setActiveComponent] = useState("default");
   const [layerStyle, setLayerStyle] = useState("streets-v2-dark");

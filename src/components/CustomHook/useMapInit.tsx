@@ -4,6 +4,7 @@ import View from "ol/View";
 import Overlay from "ol/Overlay";
 import { Options as OverlayOptions } from "ol/Overlay";
 import { MapControllerProps, UseMapOverlayProps } from "../../../type/type";
+import { Attribution, defaults as defaultControls } from "ol/control";
 
 export function useMapInitialization({
   center,
@@ -18,7 +19,17 @@ export function useMapInitialization({
     const options = {
       view: new View({ center, zoom }),
       layers: [],
-      controls: [],
+      controls: defaultControls({
+        attribution: false,
+      }).extend([
+        new Attribution({
+          collapsible: false,
+          collapsed: false,
+          label: "© OpenLayers Contributors",
+          tipLabel: "OpenStreetMap",
+          target: "attribution",
+        }),
+      ]),
     };
 
     if (!map) {

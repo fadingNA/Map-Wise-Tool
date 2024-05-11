@@ -5,6 +5,7 @@ import MapController from "@/components/Map/Map";
 import { useState } from "react";
 import MapTilerLayer from "@/components/LayerModel/BaseLayer";
 import LayerSelector from "../LayerModel/LayerSelector";
+import UploadData from "../UploadData/uploadData";
 
 export default function Home() {
   const [activeComponent, setActiveComponent] = useState("default");
@@ -36,6 +37,14 @@ export default function Home() {
           unmountOnExit
         >
           <LayerSelector onSelectStyle={setLayerStyle} />
+        </CSSTransition>
+        <CSSTransition
+          in={activeComponent === "Upload"}
+          timeout={100}
+          classNames="slide"
+          unmountOnExit
+        >
+          <UploadData />
         </CSSTransition>
       </div>
     </div>

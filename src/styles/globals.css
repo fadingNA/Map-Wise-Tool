@@ -90,3 +90,9 @@ body {
     border-bottom-right-radius: 0;
     z-index: 1000;
 }
+
+input[type="file"] {
+    display: block;
+    /* Ensure it's not hidden */
+    margin-top: 20px;
+}

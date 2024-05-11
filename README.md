@@ -1,7 +1,3 @@
-Creating a README for your repository is a great way to provide an overview of your app, explain how to set it up, and guide new users or developers through using or contributing to the project. Below, I'll outline a template for your README that you can customize according to the specifics of your application:
-
----
-
 # Project Name: Map Visualization App
 
 ## Description

@@ -6,7 +6,6 @@ import { useState } from "react";
 import MapTilerLayer from "@/components/LayerModel/BaseLayer";
 import LayerSelector from "../LayerModel/LayerSelector";
 import UploadData from "../UploadData/uploadData";
-import DataVisualizer from "../Map/DataVisualizer";
 
 export default function Home() {
   const [activeComponent, setActiveComponent] = useState("default");

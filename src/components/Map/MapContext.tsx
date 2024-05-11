@@ -1,18 +1,28 @@
 import React from "react";
 import { MapContextType } from "../../../type/type";
+import { Feature, Map } from "ol";
 
+// Providing a more functional default context value
 const defaultContextValue: MapContextType = {
-  map: null, // Assuming the map might not be available immediately
-  center: [0, 0], // Default center
-  zoom: 1, // Default zoom
-  setCenter: () => {}, // Placeholder function
-  setZoom: () => {}, // Placeholder function
+  map: null, // Correctly assumed as possibly null initially
+  features: [], // Should be an empty array as the default
+  addFeatures: (newFeatures: Feature[]) => {
+    // Example implementation that might simply console log the features
+    console.log("Adding features", newFeatures);
+  },
+  center: [0, 0], // Default center coordinates
+  zoom: 1, // Default zoom level
+  setCenter: (center: [number, number]) => {
+    console.log("Setting center to", center);
+  },
+  setZoom: (zoom: number) => {
+    console.log("Setting zoom to", zoom);
+  },
+  addLayer: (layer: any) => {
+    console.log("Adding layer", layer);
+  },
 };
 
-const MapContext = React.createContext<MapContextType | undefined>(
-  defaultContextValue
-);
+const MapContext = React.createContext<MapContextType>(defaultContextValue);
 
 export default MapContext;
-
-// Path: geowise/src/components/Map/MapContext.tsx

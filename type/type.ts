@@ -1,4 +1,6 @@
-import Layer from "ol/layer/Layer";
+import * as ol from "ol";
+import { Map, Feature } from "ol";
+import { Layer } from "ol/layer";
 
 export interface LayoutProps {
   children: React.ReactNode;
@@ -16,11 +18,14 @@ export interface UseMapOverlayProps {
 }
 
 export interface MapContextType {
-  map: any; // Use the specific type of your map object, e.g., ol.Map if using OpenLayers
+  map: Map | null;
+  features: Feature[]; // Array to hold features
+  addFeatures: (newFeatures: Feature[]) => void; // Function to add features
   center: [number, number];
   zoom: number;
   setCenter: (center: [number, number]) => void;
   setZoom: (zoom: number) => void;
+  addLayer: (layer: Layer) => void; // Use ol/layer Layer type for correctness
 }
 
 export interface MapTilerLayerProps {

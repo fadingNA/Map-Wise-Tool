@@ -1,5 +1,15 @@
-import React, { useRef, useState, PropsWithChildren, useMemo } from "react";
-import { useMapInitialization, useMapOverlay } from "../CustomHook";
+import React, {
+  useRef,
+  useState,
+  PropsWithChildren,
+  useMemo,
+  useContext,
+} from "react";
+import {
+  useMapInitialization,
+  useMapOverlay,
+  useFeatureLayer,
+} from "../CustomHook";
 import MapContext from "./MapContext";
 import { MapContextType } from "../../../type/type";
 import ol from "ol";
@@ -9,29 +19,27 @@ const MapController: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const center = useMemo<[number, number]>(() => [43.6532, -79.3832], []);
   const zoom = useMemo(() => 5, []);
 
+  // Initialize useFeatureLayer hook to manage the vector layer and features
+
+
+  // Initialize map and other map-related variables
   const [map, mapRef] = useMapInitialization({ center, zoom });
   const [mapCenter, setMapCenter] = useState(center);
   const [mapZoom, setMapZoom] = useState(zoom);
-  const [features, setFeatures] = useState<Feature[]>([]);
-
   const popupElement = useRef<HTMLDivElement>(null);
   useMapOverlay({ map, popupRef: popupElement });
 
+  // Function to add a layer to the map
   const addLayer = (newLayer: any) => {
     if (map) {
       map.addLayer(newLayer);
     }
   };
 
-  const addFeatures = (newFeatures: Feature[]) => {
-    setFeatures((currentFeatures) => [...currentFeatures, ...newFeatures]);
-    // You might want to add these features to a specific layer too
-  };
-
+  // Context value containing map-related data and functions
   const contextValue: MapContextType = {
     map,
-    features,
-    addFeatures,
+    features: [],
     center: mapCenter,
     zoom: mapZoom,
     setCenter: setMapCenter,
@@ -44,6 +52,7 @@ const MapController: React.FC<PropsWithChildren<{}>> = ({ children }) => {
       <div className="map-wrap">
         <div ref={mapRef} className="ol-map">
           {children}
+
         </div>
       </div>
     </MapContext.Provider>
@@ -51,5 +60,3 @@ const MapController: React.FC<PropsWithChildren<{}>> = ({ children }) => {
 };
 
 export default MapController;
-
-// Path: geowise/src/components/Map/MapController.tsx

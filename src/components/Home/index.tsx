@@ -29,25 +29,24 @@ export default function Home() {
       <ToolControl handleMenuSelect={handleMenuSelect} />
       <div className="main-content" style={{ flex: 1 }}>
         <MapController>
-          <DataVisualizer />
-          <MapTilerLayer style={layerStyle} zIndex={1} opacity={1} />
+          <MapTilerLayer style={layerStyle} baseLayerZIndex={0} opacity={1} />
+          <CSSTransition
+            in={activeComponent === "Layers"}
+            timeout={100}
+            classNames="slide"
+            unmountOnExit
+          >
+            <LayerSelector onSelectStyle={setLayerStyle} />
+          </CSSTransition>
+          <CSSTransition
+            in={activeComponent === "Upload"}
+            timeout={100}
+            classNames="slide"
+            unmountOnExit
+          >
+            <UploadData />
+          </CSSTransition>
         </MapController>
-        <CSSTransition
-          in={activeComponent === "Layers"}
-          timeout={100}
-          classNames="slide"
-          unmountOnExit
-        >
-          <LayerSelector onSelectStyle={setLayerStyle} />
-        </CSSTransition>
-        <CSSTransition
-          in={activeComponent === "Upload"}
-          timeout={100}
-          classNames="slide"
-          unmountOnExit
-        >
-          <UploadData />
-        </CSSTransition>
       </div>
     </div>
   );

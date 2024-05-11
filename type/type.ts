@@ -20,7 +20,6 @@ export interface UseMapOverlayProps {
 export interface MapContextType {
   map: Map | null;
   features: Feature[]; // Array to hold features
-  addFeatures: (newFeatures: Feature[]) => void; // Function to add features
   center: [number, number];
   zoom: number;
   setCenter: (center: [number, number]) => void;

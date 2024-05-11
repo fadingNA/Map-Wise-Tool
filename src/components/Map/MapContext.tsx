@@ -1,28 +1,25 @@
-import React from "react";
-import { MapContextType } from "../../../type/type";
-import { Feature, Map } from "ol";
+import React, { useRef, useState, useMemo, useEffect } from "react";
+import Map from "ol/Map";
+import View from "ol/View";
+import VectorLayer from "ol/layer/Vector";
+import VectorSource from "ol/source/Vector";
+import { Feature } from "ol";
+import TileLayer from "ol/layer/Tile";
+import OSM from "ol/source/OSM";
+import { createContext } from "react";
 
-// Providing a more functional default context value
+export interface MapContextType {
+  map: Map | null;
+  features: Feature[];
+  addLayer: (layer: any) => void;
+}
+
 const defaultContextValue: MapContextType = {
-  map: null, // Correctly assumed as possibly null initially
-  features: [], // Should be an empty array as the default
-  addFeatures: (newFeatures: Feature[]) => {
-    // Example implementation that might simply console log the features
-    console.log("Adding features", newFeatures);
-  },
-  center: [0, 0], // Default center coordinates
-  zoom: 1, // Default zoom level
-  setCenter: (center: [number, number]) => {
-    console.log("Setting center to", center);
-  },
-  setZoom: (zoom: number) => {
-    console.log("Setting zoom to", zoom);
-  },
-  addLayer: (layer: any) => {
-    console.log("Adding layer", layer);
-  },
+  map: null,
+  features: [],
+  addLayer: () => {},
 };
 
-const MapContext = React.createContext<MapContextType>(defaultContextValue);
+const MapContext = createContext<MapContextType>(defaultContextValue);
 
 export default MapContext;

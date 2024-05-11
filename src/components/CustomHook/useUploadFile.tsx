@@ -1,4 +1,3 @@
-import React from "react";
 import { Feature } from "ol";
 import { GeoJSON } from "ol/format";
 import * as shpjs from "shpjs";
@@ -8,19 +7,44 @@ import WKT from "ol/format/WKT";
 import { Table as ArrowTable } from "apache-arrow";
 import { load } from "@loaders.gl/core";
 import { ArrowLoader } from "@loaders.gl/arrow";
+import { useContext, useCallback } from "react";
+import MapContext from "../Map/MapContext";
+import useFeatureLayer from "./useFeatureLayer";
 
 interface ProcessedData {
   features?: Feature[];
   rawData?: any;
 }
 function useUploadFile() {
-  const handleFileUpload = React.useCallback(
+  const { addFeatures } = useFeatureLayer();
+  const { map } = useContext(MapContext);
+
+  const handleFileUpload = useCallback(
     async (file: File, fileType: string) => {
-      const processedData = await processFile(file, fileType);
-      console.log(processedData);
+      try {
+        const processedData = await processFile(file, fileType);
+        const features = transformFeatures(processedData.features);
+        console.log("Features:", features);
+        addFeatures(features);
+      } catch (error) {
+        console.error("Error processing file:", error);
+      }
     },
-    []
+    [addFeatures] // Add featureLayer to dependency array
   );
+
+  const transformFeatures = (geojsonData: any) => {
+    const geojsonFormat = new GeoJSON();
+    if (!geojsonData || !geojsonData.features) {
+      console.error("Invalid or empty GeoJSON data");
+      return []; // Return an empty array to safely handle errors
+    }
+    const transformedFeatures = geojsonFormat.readFeatures(geojsonData, {
+      featureProjection: "EPSG:3857",
+      dataProjection: "EPSG:4326", // Assuming the shapefile is in WGS 84
+    });
+    return transformedFeatures;
+  };
 
   const uploadShapeFile = async (file: File) =>
     await handleFileUpload(file, "shapefile");
@@ -77,15 +101,24 @@ async function processFile(
             }
             shpjs
               .parseZip(fileContent)
-              .then((shapefileData) => {
-                resolve({
-                  features: new GeoJSON().readFeatures(shapefileData),
-                });
+              .then((geojsonData: any) => {
+                if (
+                  geojsonData &&
+                  geojsonData.type === "FeatureCollection" &&
+                  Array.isArray(geojsonData.features)
+                ) {
+                  resolve({
+                    features: geojsonData,
+                  });
+                } else {
+                  reject(new Error("Invalid GeoJSON data"));
+                }
               })
               .catch((err) => {
                 reject(err);
               });
             break;
+
           case "geojson":
             resolve({
               features: new GeoJSON().readFeatures(fileContent as string),

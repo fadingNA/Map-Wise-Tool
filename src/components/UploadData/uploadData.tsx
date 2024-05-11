@@ -1,5 +1,6 @@
-import React, { useCallback } from "react";
+import React, { useContext, useCallback } from "react";
 import { useUploadFile } from "../CustomHook";
+import MapContext from "../Map/MapContext"; // Add this import statement
 
 function UploadData() {
   const {
@@ -9,6 +10,7 @@ function UploadData() {
     uploadKMLFile,
     uploadGPXFile,
   } = useUploadFile();
+
 
   const handleFileChange = useCallback(
     (event: any) => {

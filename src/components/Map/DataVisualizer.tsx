@@ -1,25 +1,17 @@
 import React, { useContext, useEffect } from "react";
-import MapContext from "./MapContext";
-import VectorLayer from "ol/layer/Vector";
-import VectorSource from "ol/source/Vector";
-import { Feature } from "ol";
-import { Style } from "ol/style";
+import MapContext from "../Map/MapContext";
+import useFeatureLayer from "../CustomHook/useFeatureLayer";
 
 function DataVisualizer() {
-  const { map, features, addLayer } = useContext(MapContext);
+  const { map, features } = useContext(MapContext);
+  const { addFeatures } = useFeatureLayer(features);
 
   useEffect(() => {
     if (map && features.length > 0) {
-      const vectorSource = new VectorSource({
-        features, // these are OpenLayers Feature objects
-      });
-      const vectorLayer = new VectorLayer({
-        source: vectorSource,
-      });
-
-      addLayer(vectorLayer); // Use the context's addLayer method
+      console.log("Adding features to map DataVisualizer");
+      addFeatures(features);
     }
-  }, [map, features, addLayer]); // React on changes in these dependencies
+  }, [map, features, addFeatures]);
 
   return null; // This component does not render anything itself
 }

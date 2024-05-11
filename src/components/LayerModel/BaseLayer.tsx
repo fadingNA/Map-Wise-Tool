@@ -5,16 +5,15 @@ import MapContext from "@/components/Map/MapContext";
 
 const MapTilerLayer = ({
   style = "streets-v2-dark",
-  zIndex = 0,
+  baseLayerZIndex = 0, // Default zIndex for base layers
   opacity = 1,
   visible = true,
 }) => {
-  const context = useContext(MapContext);
+  const { map } = useContext(MapContext);
 
   useEffect(() => {
-    if (!context?.map) return; // Check if 'map' is available
-    console.log(style);
-    const map = context.map;
+    if (!map) return; // Check if 'map' is available
+
     const url = `https://api.maptiler.com/maps/${style}/{z}/{x}/{y}@2x.png?key=0EwVPj0QPVB9CXJO2d0g`;
     const maptilerLayer = new OLTileLayer({
       source: new XYZ({
@@ -23,17 +22,24 @@ const MapTilerLayer = ({
         crossOrigin: "anonymous",
         attributions: "© MapTiler © OpenStreetMap contributors",
       }),
-      zIndex,
+      zIndex: baseLayerZIndex,
       opacity,
       visible,
     });
 
     map.addLayer(maptilerLayer);
 
+    // Manage layer ordering on change
+    map
+      .getLayers()
+      .getArray()
+      .filter((layer) => layer !== maptilerLayer)
+      .forEach((layer) => layer.setZIndex(baseLayerZIndex + 1)); // Ensuring all other layers are above the base layer
+
     return () => {
       map.removeLayer(maptilerLayer);
     };
-  }, [context?.map, style, zIndex, opacity, visible]);
+  }, [map, style, baseLayerZIndex, opacity, visible]);
 
   return null;
 };
